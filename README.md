@@ -7,14 +7,14 @@
 
 Right now, nothing! But over the course of the workshop, I'll be showing you how to implement some fairly neat things using modern JavaScript and browser APIs, and we'll be pushing code and examples to this repository as we go. Here's how we're going to be laying things out:
 
-```
-canvas/
-	- Introduction to the HTML Canvas API, which we'll be using throughout the workshop
-conway/
-	- Conway's Game of Life implemented in JavaScript
-mandel/
-	- The Mandelbrot Set
-```
+**<a href="canvas/">canvas/</a>**
+    Introduction to the HTML Canvas API, which we'll be using throughout the workshop
+
+**<a href="conway/">conway</a>**
+    Conway's Game of Life implemented in JavaScript
+
+**<a href="mandel/">mandel</a>**
+    The Mandelbrot Set
 
 ## Part 1: The HTML Canvas API
 
