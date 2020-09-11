@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>HTML Canvas Demo</title>
-    </head>
-    <body>
-        //TODO: canvas stuff
-    </body>
+
+<head>
+    <title>HTML Canvas Demo</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#f00";
+        ctx.fillRect(100,100,100,100);
+    </script>
+</body>
+
 </html>
