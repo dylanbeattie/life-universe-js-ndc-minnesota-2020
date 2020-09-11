@@ -13,10 +13,42 @@
 <body>
     <canvas id="canvas" width="600" height="600"></canvas>
     <script>
+        let grid = [
+            [1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1]
+        ];
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "#f00";
-        ctx.fillRect(100,100,100,100);
+        let GRID_SIZE = canvas.width / grid.length;
+
+        let render = function (grid) {
+            for (let row = 0; row < grid.length; row++) {
+                for (let col = 0; col < grid[0].length; col++) {
+                    let value = grid[row][col];
+                    let x = GRID_SIZE * row;
+                    let y = GRID_SIZE * col;
+                    let fillStyle = (value ? "#fc0" : "#90f");
+                    ctx.fillStyle = fillStyle;
+                    ctx.fillRect(x, y, GRID_SIZE, GRID_SIZE);
+                }
+            }
+        }
+        render(grid);
+        canvas.onclick = function (evt) {
+            let bounds = canvas.getBoundingClientRect();
+            let canvasX = evt.x - bounds.left;
+            let canvasY = evt.y - bounds.top;
+            let row = Math.floor(canvasX / GRID_SIZE);
+            let col = Math.floor(canvasY / GRID_SIZE);
+            grid[row][col] = !grid[row][col];
+            render(grid);
+        }
     </script>
 </body>
 
