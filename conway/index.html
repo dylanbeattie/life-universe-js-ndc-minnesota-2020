@@ -11,6 +11,11 @@
 </head>
 
 <body>
+    <div>
+        <input type="button" name="tick" id="tickButton" value="Tick" />
+        <input type="button" name="start" id="startButton" value="▶" />
+        <input type="button" name="stop" id="stopButton" value="⏸" />
+    </div>
     <canvas id="canvas" width="600" height="600"></canvas>
     <script>
 
@@ -36,13 +41,31 @@
                 console.log(livingNeighbourCount);
                 return(livingNeighbourCount);
             }
+
+            this.dieOfLoneliness = () => this.isAliveNextTime = false;
+            this.dieOfOvercrowding = () => this.isAliveNextTime = false;
+            this.resurrect = () => this.isAliveNextTime = true;
+            this.noChange = () => this.isAliveNextTime = this.isAliveRightNow;
+
+            this.prepareToEvolve = function() {
+                let n = this.countLivingNeighbours();
+                switch(true) {
+                    case (n < 2): this.dieOfLoneliness(); break;
+                    case (n > 3): this.dieOfOvercrowding(); break;
+                    case (n == 3): this.resurrect(); break;
+                    default: this.noChange();
+                }
+            }
+            this.evolve = function() {
+                this.isAliveRightNow = this.isAliveNextTime;
+            }
         }
 
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext("2d");
         ctx.fillStyle = "#060";
         ctx.fillRect(0,0,canvas.width,canvas.height);
-        const GRID_SIZE = 50;
+        const GRID_SIZE = 20;
         const ROWS = canvas.width / GRID_SIZE;
         const COLS = canvas.height / GRID_SIZE;
 
@@ -53,7 +76,20 @@
                 grid[row][col] = new Cell(row,col,grid);
             }
         }
-        console.log(grid);        
+        console.log(grid);     
+        let tick = function () {
+            for (let row = 0; row < grid.length; row++) {
+                for (let col = 0; col < grid[0].length; col++) {
+                    grid[row][col].prepareToEvolve();
+                }
+            }
+            for (let row = 0; row < grid.length; row++) {
+                for (let col = 0; col < grid[0].length; col++) {
+                    grid[row][col].evolve();
+                }
+            }
+            render(grid);
+        }   
 
         let render = function (grid) {
             for (let row = 0; row < grid.length; row++) {
@@ -78,6 +114,14 @@
             cell.countLivingNeighbours();
             render(grid);
         }
+
+        let tickButton = document.getElementById('tickButton');
+        let startButton = document.getElementById('startButton');
+        let stopButton = document.getElementById('stopButton');
+
+        startButton.onclick = evt => window.gameIntervalId = window.setInterval(tick, 100);        
+        tickButton.onclick = tick;
+        stopButton.onclick = evt =>  window.clearInterval(window.gameIntervalId);
     </script>
 </body>
 
