@@ -21,13 +21,28 @@
             this.isAliveRightNow = 0;
             this.isAliveNextTime = 0;
             this.getFillStyle = () => (this.isAliveRightNow ? "#0f0" : "#000");
+            this.countLivingNeighbours = function() {
+                let livingNeighbourCount = 0;
+                let min_row = Math.max(0, this.row - 1);
+                let max_row = Math.min(grid.length, this.row + 2);
+                let min_col = Math.max(0, this.col - 1);
+                let max_col = Math.min(grid.length, this.col + 2);
+                for(let r = min_row; r < max_row; r++) {
+                    for (let c = min_col; c < max_col; c++) {
+                        if (r == this.row && c == this.col) continue;
+                        if (grid[r][c].isAliveRightNow) livingNeighbourCount++;
+                    }
+                }
+                console.log(livingNeighbourCount);
+                return(livingNeighbourCount);
+            }
         }
 
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext("2d");
         ctx.fillStyle = "#060";
         ctx.fillRect(0,0,canvas.width,canvas.height);
-        const GRID_SIZE = 10;
+        const GRID_SIZE = 50;
         const ROWS = canvas.width / GRID_SIZE;
         const COLS = canvas.height / GRID_SIZE;
 
@@ -60,6 +75,7 @@
             let col = Math.floor(canvasY / GRID_SIZE);
             let cell = grid[row][col];
             cell.isAliveRightNow = !cell.isAliveRightNow;
+            cell.countLivingNeighbours();
             render(grid);
         }
     </script>
