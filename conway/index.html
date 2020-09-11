@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTML Canvas Demo</title>
+    <style>
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext("2d");
+        const GRID_SIZE = 10;
+        const ROWS = canvas.width / GRID_SIZE;
+        const COLS = canvas.height / GRID_SIZE;
+        let rows = new Array(ROWS).fill(0);
+        console.log(rows);
+        let grid = rows.map(row => new Array(COLS).fill(0));
+        console.log(grid);
+        
+
+        let render = function (grid) {
+            for (let row = 0; row < grid.length; row++) {
+                for (let col = 0; col < grid[0].length; col++) {
+                    let value = grid[row][col];
+                    let x = GRID_SIZE * row;
+                    let y = GRID_SIZE * col;
+                    let fillStyle = (value ? "#fc0" : "#90f");
+                    ctx.fillStyle = fillStyle;
+                    ctx.fillRect(x+1, y+1, GRID_SIZE-1, GRID_SIZE-1);
+                }
+            }
+        }
+        render(grid);
+        canvas.onclick = function (evt) {
+            let bounds = canvas.getBoundingClientRect();
+            let canvasX = evt.x - bounds.left;
+            let canvasY = evt.y - bounds.top;
+            let row = Math.floor(canvasX / GRID_SIZE);
+            let col = Math.floor(canvasY / GRID_SIZE);
+            grid[row][col] = !grid[row][col];
+            render(grid);
+        }
+    </script>
+</body>
+
+</html>
