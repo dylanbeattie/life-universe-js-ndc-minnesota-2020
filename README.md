@@ -163,7 +163,7 @@ The material in this workshop is based on work I did when writing my talk [The A
 #### The Mandelbrot Set
 
 * [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) at Wikipedia
-* An *incredibly* fast online [Mandelbrot set renderer](https://mandelbrot.ophir.dev/#{%22pos%22:{%22x%22:-0.5,%22y%22:0},%22zoom%22:250}), built using [svelte](https://svelte.dev/), with [source code on Github](https://github.com/lovasoa/mandelbrot)
+* An *incredibly* fast online [Mandelbrot set renderer](https://mandelbrot.ophir.dev/), built using [svelte](https://svelte.dev/), with [source code on Github](https://github.com/lovasoa/mandelbrot)
 * ["What's so special about the Mandelbrot Set?"](https://www.youtube.com/watch?v=FFftmWSzgmk) by Numberphile on YouTube
 * [HD video of a Mandelbrot zoom to 10^227](https://www.youtube.com/watch?v=PD2XgQOyCCk) on YouTube
 
